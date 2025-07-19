@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <div><a href="/admin/">Admin panel</a></div>
+    {% block content %}
+    {% endblock content %}
+
+    
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+
+
+{% comment %} {% for group in groups %}
+    <img src="{{student.image.url}}" alt="profile-photo">
+    <p>Firstname: {{student.first_name}}</p>
+    <p>Lastname: {{student.last_name}}</p>
+    <p>LogIn: {{student.login}}</p>
+    <p>Group: {{student.group}}</p>
+    <p>Email: {{student.email}}</p>
+    <p>Pasport raqam: {{student.pasport}}</p>
+    <p>Phone: {{student.phone}}</p>
+    <p>Password: {{student.password}}</p>
+    {% endfor %} {% endcomment %}
