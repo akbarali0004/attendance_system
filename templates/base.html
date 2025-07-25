@@ -8,7 +8,23 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-    <div><a href="/admin/">Admin panel</a></div>
+    <header>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}! You are logged in.</p>
+            <div>
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none;border:none;color:blue;cursor:pointer;">
+                        Log out
+                    </button>
+                </form>
+                | <a href="/admin/">Admin panel</a>
+            </div>
+        {% else %}
+            <p>You are not logged in. <a href="{% url 'login' %}">Log in here</a>.</p>
+        {% endif %}
+    </header>
+
     {% block content %}
     {% endblock content %}
 
