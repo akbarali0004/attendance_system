@@ -8,7 +8,7 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-    <header>
+    {% comment %} <header>
         {% if user.is_authenticated %}
             <p>Welcome, {{ user.username }}! You are logged in.</p>
             <div>
@@ -23,7 +23,7 @@
         {% else %}
             <p>You are not logged in. <a href="{% url 'login' %}">Log in here</a>.</p>
         {% endif %}
-    </header>
+    </header> {% endcomment %}
 
     {% block content %}
     {% endblock content %}
@@ -32,16 +32,3 @@
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
-
-
-{% comment %} {% for group in groups %}
-    <img src="{{student.image.url}}" alt="profile-photo">
-    <p>Firstname: {{student.first_name}}</p>
-    <p>Lastname: {{student.last_name}}</p>
-    <p>LogIn: {{student.login}}</p>
-    <p>Group: {{student.group}}</p>
-    <p>Email: {{student.email}}</p>
-    <p>Pasport raqam: {{student.pasport}}</p>
-    <p>Phone: {{student.phone}}</p>
-    <p>Password: {{student.password}}</p>
-    {% endfor %} {% endcomment %}
