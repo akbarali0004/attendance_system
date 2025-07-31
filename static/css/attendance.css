@@ -1,0 +1,23 @@
+/* Attendance table */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #96D4D4;
+    height: 50px;
+}
+td {
+    height: 25px;
+}
+
+#name {
+    width: 190px;
+}
+#baho {
+    width: 80px;
+}
+#davomat {
+    width: 80px;
+}

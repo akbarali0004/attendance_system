@@ -2,6 +2,10 @@
 {% load static %}
 {% load custom_tags %}
 
+{% block extra_css %}
+<link href="{% static 'css/attendance.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
 {% block title %}
 {{group.name}}
 {% endblock title %}
@@ -41,3 +45,7 @@
     </table>
 </form>
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/attendance.js' %}"></script>
+{% endblock extra_js %}

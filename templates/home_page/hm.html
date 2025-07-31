@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>{{page}}</p><br><br>
+    <a href="{% url 'logout' %}">Chiqish</a><br><br>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="login-error-container" onclick="this.style.display='none'">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

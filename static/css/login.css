@@ -1,29 +1,3 @@
-/* Attendance table */
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-th {
-    background-color: #96D4D4;
-    height: 50px;
-}
-td {
-    height: 25px;
-}
-
-#name {
-    width: 190px;
-}
-#baho {
-    width: 80px;
-}
-#davomat {
-    width: 80px;
-}
-
-
-
 /* LogIn Page */
 * {
     margin: 0;
@@ -42,7 +16,9 @@ body {
 }
 
 .login-container {
-    background: rgb(63, 52, 52);
+    background: rgb(82, 61, 61);
+    /* background: rgb(63, 52, 52); */
+    /* background: linear-gradient(to bottom, rgb(235, 54, 54), rgb(3, 3, 112)); */
     border-radius: 15px;
     box-shadow: 0 20px 60px rgba(122, 247, 21, 0.1);
     overflow: hidden;

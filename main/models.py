@@ -1,56 +1,99 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.hashers import make_password
 from django.core.validators import RegexValidator
 from django.utils import timezone
+from .generate_login import generate_numeric_login
 
 
-# Create your models here.
-class Group(models.Model):
-    name = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.name
-    
+# class Subject(models.Model):
+#     name = models.CharField(max_length=50)
 
-class Student(models.Model):
+
+class BaseProfile(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    image = models.FileField(upload_to='profile-photo')
+    birth_date = models.DateField()
+    gender = models.CharField(max_length=10, choices=[('male', 'Erkak'), ('female', 'Ayol')])
+    image = models.FileField(upload_to='profile-photo', blank=True, null=True)
+    password = models.CharField(max_length=30)
     login = models.CharField(
-        max_length=10, 
+        max_length=12,
+        unique=True,
         validators=[
             RegexValidator(
-                regex=r'^\d{10}$',
-                message='Login faqat 10 xonali raqamlardan iborat bo‘lishi kerak.',
-                code='invalid_login'
+                regex=r'^\d{12}$',
+                message="Login faqat 12 ta raqamdan iborat bo'lishi kerak."
             )
-        ],
-        unique=True)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='students')
+        ]
+    )
     pasport = models.CharField(
         max_length=9,
+        unique=True,
         validators=[
             RegexValidator(
                 regex=r'^[A-Za-z]{2}\d{7}$',
-                message="Pasport raqamingizni to'g'ri kiriting. Masalan: AB1234567"
+                message="Pasport ma'lumotlari xato kiritildi. (N: AD1234567)"
             )
-        ],
-        unique=True,)
+        ],)
     email = models.EmailField(max_length=254)
     phone = models.CharField(
         max_length=13,
         validators=[
             RegexValidator(
                 regex=r'^\+998\d{9}$',
-                message="Telefon raqami +998 bilan boshlanib, jami 13 ta belgidan iborat bo‘lishi kerak (masalan: +998901234567)"
+                message="Telefon raqami xato kiritildi. (N: +998901234567)"
             )
         ],
         unique=True
     )
-    password = models.CharField(max_length=30)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return self.first_name
+    
+    def save(self, *args, **kwargs):
+        if not self.login:
+            code = generate_numeric_login()
+            while Student.objects.filter(login=code).exists() or Teacher.objects.filter(login=code).exists():
+                code = generate_numeric_login()
+            self.login = code
+        
+        self.password = make_password(self.password)
+        super().save(*args, **kwargs)
+
+
+
+class Teacher(BaseProfile):
+    # subjects = models.ManyToManyField(Subject)
+    POSITIONS = [
+        ('assistent', "O'qituvchi"),
+        ('senior', "Katta o'qituvchi"),
+        ('docent', "Dotsent (PhD)"),
+        ('professor', 'Professor'),
+        ('head_of_department', 'Kafedra mudiri'),
+        ('dean', 'Fakultet dekani'),
+    ]
+    position = models.CharField(max_length=100, choices=POSITIONS)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=50)
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class Student(BaseProfile):
+    EDU_TYPES = [
+        ('grant', 'Davlat granti asosida'),
+        ('contract', 'To‘lov-kontrakt asosida'),
+    ]
+    edu_type = models.CharField(max_length=12, choices=EDU_TYPES)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name='students')
 
 
 class Attendance(models.Model):
