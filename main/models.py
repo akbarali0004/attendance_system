@@ -95,10 +95,18 @@ class Student(BaseProfile):
     edu_type = models.CharField(max_length=12, choices=EDU_TYPES)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name='students')
 
+    def attendance_percent(self):
+        total = self.attendances.count()
+        if total == 0:
+            return 100
+        present = self.attendances.filter(is_present=True).count()
+        return round(present * 100 / total, 2)
+
 
 class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='attendances')
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='attendances')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group_attendances')
+    marked_by = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, blank=True, related_name='maked_attendances')
     is_present = models.BooleanField(default=False)
     grade = models.PositiveIntegerField(null=True, blank=True)
     date = models.DateField(default=timezone.now)

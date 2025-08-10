@@ -1,0 +1,521 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+body {
+    background-color: #f4f6fa;
+}
+.container {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh; /* bu muhim */
+    height: 100dvh; /* bu muhim */
+    justify-content: space-between; /* .menu yuqorida, .support pastda turadi */
+    background: #1c1f2e;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    transition: left 0.6s ease, background 0.6s ease;
+}
+.sidebar.hidden {
+    left: -250px;
+    background: rgb(155, 44, 44);
+    transition: left 0.6s ease, background 0.6s ease;
+}
+.menu {
+    margin-left: 13px;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px); /* support + padding joyini hisobga olamiz */
+    max-height: calc(100dvh - 100px); /* support + padding joyini hisobga olamiz */
+    scrollbar-width: none; /*Firefox*/
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.menu::-webkit-scrollbar {
+    display: none;   /*Chrome, Safari, Opera */
+}
+.sidebar .logo {
+    margin-top: 30px;
+}
+.sidebar .menu li,
+.sidebar .project-section li {
+    list-style: none;
+    margin: 15px 0;
+    cursor: pointer;
+    color: #ccc;
+}
+.sidebar ul li:hover,
+.sidebar ul li.active {
+    color: white;
+}
+.sidebar .project-section .active {
+    color: lime;
+}
+.sidebar .project-section {
+    margin-top: 30px;
+}
+.badge {
+    /* background: rgb(247, 246, 245);
+    color: rgb(13, 16, 182); */
+    /* background: orange; */
+    background: rgb(74, 80, 87);
+    color: white;
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+.support {
+    margin-top: 20px;
+    border-top: 1px solid #fff;
+    padding-top: 10px;
+}
+.support button {
+    width: 100%;
+    padding: 10px;
+    background: #f1c40f;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Sidebar Close Button */
+.sidebar .close-btn {
+    background: none;
+    border: none;
+    color: rgb(167, 152, 152);
+    font-size: 24px;
+    align-self: flex-end;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.sidebar .close-btn:hover{
+    color: white;
+}
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.sidebar-header h2.logo {
+    margin: 0;
+    margin-top: 15px;
+    flex: 1;
+}
+
+
+/* Main */
+.main {
+    flex: 1;
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.6s ease;
+}
+.main.shift {
+    margin-left: 0px;
+    transition: margin-left 0.6s ease;
+}
+
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 5px 20px;
+    border-bottom: 1px solid #ddd;
+}
+.navbar * {
+    cursor: pointer;
+    color: #1c1f2e;
+}
+.dashboard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.dashboard .menu-toggle.active {
+    display: inline-block;
+}
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-info span {
+    padding: 15px 15px;
+    font-size: 16px;
+}
+.user-info .cont {
+    padding: 11px 15px;
+}
+.notification-badge {
+    position: relative;
+}
+.notification-badge i {
+    color: rgb(68, 56, 56);
+    font-size: 22px;
+}
+.notification-badge .badge {
+    background: rgb(50, 206, 3);
+    position: absolute;
+    color: white;
+    top: -5px;
+    left: -1px;
+    font-size: 8px;
+    padding: 2px 6px;
+}
+.user-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 15px;
+}
+.user-profile .item-1 {
+    font-size: 15px;
+    font-weight: bold;
+}
+.user-profile .item-2 {
+    margin-top: 2px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+.user-profile .user-image {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user-info span:hover,
+.user-info .cont:hover,
+.notification-badge:hover,
+.user-profile:hover {
+    border-radius: 5px;
+    background: #ece6e6;
+}
+.menu-toggle {
+    display: none;
+    font-size: 18px;
+    color: rgb(75, 70, 70);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Info */
+.project-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #eef2f6;
+    color:#1f2853;;
+}
+
+
+/* Tabs */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 20px;
+    background: white;
+    border-bottom: 1px solid #ccc;
+}
+.tabs button {
+    padding: 8px 12px;
+    border: none;
+    background: #ecf0f1;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.tabs .active {
+    background: #3498db;
+    color: white;
+}
+
+
+/* Table */
+.table-container {
+    max-height: calc(100vh - 200px); /* Navbar va boshqa elementlar balandligini ayiramiz */
+    max-height: calc(100dvh - 200px); /* Navbar va boshqa elementlar balandligini ayiramiz */
+    /* overflow-y: auto; */
+    padding: 20px;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+th {
+    color: #1c1f2e;
+}
+th, td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+.student-name {
+    text-align: left;
+}
+td a {
+    text-decoration: none;
+}
+td input[type="number"] {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;          /* Chegarani olib tashlash */
+    outline: none;         /* Focus paytida chiziq chiqmasin */
+    background: transparent; /* Orqa fon ko‘rinmasin */
+    padding: 0;            /* Ichki bo‘shliqni olib tashlash */
+    margin: 0;             /* Tashqi bo‘shliqni olib tashlash */
+    font: inherit;         /* Jadvaldagi shriftni oladi */
+    text-align: inherit;
+
+    /* Chrome, Edge, Safari uchun strelkalarni olib tashlash */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+}
+/* Firefox uchun */
+td input[type="number"]::-webkit-outer-spin-button,
+td input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+td input[type="checkbox"] {
+    margin: 0;
+    font: inherit;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+}
+.progress-wrapper {
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; */
+
+    position: relative;
+    display: inline-block;
+}
+
+progress {
+    width: 100px;
+    height: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Bo'sh qismi */
+progress::-webkit-progress-bar {
+    background-color: #e2dddd;
+    border-radius: 8px;
+}
+
+/* Chrome, Safari uchun to‘ldirilgan qismi */
+progress::-webkit-progress-value {
+    border-radius: 8px;
+    background-color: var(--progress-color, #02ca23);
+}
+
+/* Firefox uchun to‘ldirilgan qismi */
+progress::-moz-progress-bar {
+    border-radius: 8px;
+    background-color: var(--progress-color, #02ca23);
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    pointer-events: none; /* bosilganda ta’sir qilmasin */
+}
+
+
+.table-save-btn {
+    background-color: #4a90e2;     /* Asosiy rang */
+    color: white;                  /* Matn rangi */
+    padding: 8px 16px;              /* Ichki bo‘shliq */
+    border: none;                   /* Chegarani olib tashlash */
+    border-radius: 6px;             /* Yumaloqlik */
+    font-size: 14px;                 /* Matn kattaligi */
+    cursor: pointer;                /* Qo‘lcha ko‘rinishi */
+    transition: background-color 0.3s, transform 0.2s; /* Yumshoq o‘tish */
+}
+
+.table-save-btn:hover {
+    background-color: #357ab8;      /* Hoverda biroz to‘q rang */
+    transform: translateY(-1px);    /* Biroz ko‘tarilishi */
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.red { background: red; }
+.green { background: green; }
+.orange { background: orange; }
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+.badge.green {
+    background: #d4edda;
+    color: #155724;
+}
+.badge.orange {
+    background: #fff3cd;
+    color: #856404;
+}
+
+
+/* Groups list */
+.home-container {
+    max-height: calc(100vh - 200px); /* Navbar va boshqa elementlar balandligini ayiramiz */
+    max-height: calc(100dvh - 200px); /* Navbar va boshqa elementlar balandligini ayiramiz */
+    /* overflow-y: auto; */
+    padding: 20px;
+    overflow-x: auto;
+    display: grid; /* Grid yoqiladi */
+    /* grid-template-columns: repeat(4, 1fr); 3 ta ustun */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    padding: 10px;
+    row-gap: 20px;
+    column-gap: 20px;
+    box-sizing: border-box;
+}
+.group_list {
+    height: 150px;
+    max-width: 230px;
+    background: rgb(230, 233, 235);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
+}
+.home-container .group_list:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+}
+.group_list h3 {
+    color: rgb(39, 36, 36);
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        position: relative;
+        overflow-y: hidden;
+    }
+
+    .sidebar {
+        position: absolute;
+        max-height: 100vh;
+        max-height: 100dvh;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+        left: -250px;
+        background: rgb(155, 44, 44);
+        transition: left 0.6s ease, background 0.6s ease;
+    }
+    /* Sidebar ochilgan holat */
+    .sidebar.hidden {
+        background: #1c1f2e;
+        left: 0;
+        transition: left 0.6s ease, background 0.6s ease;
+    }
+
+    .main {
+        margin-left: 0;
+        transition: margin-left 0.6s ease;
+    }
+    /* Main siljishi */
+    .main.shift {
+        margin-left: 250px;
+        transition: margin-left 0.6s ease;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+    }
+    .dashboard .menu-toggle {
+        display: none;
+    }
+    .dashboard .menu-toggle.active {
+        display: none;
+    }
+    .user-info .menu-toggle {
+        display: inline-block;
+    }
+
+    .tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    .cont, 
+    .user-profile img {
+        display: none; /* Bell va profil rasmni yashirish */
+    }
+
+    .user-info {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    h3 {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Bitta ustun qilib, pastga joylash */
+    header { /* agar bu kod header ichida bo'lsa */
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .table-container {
+        max-height: none;
+        /* overflow-y: visible; */
+    }
+}

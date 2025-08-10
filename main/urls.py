@@ -9,5 +9,5 @@ urlpatterns = [
     path('teacher/', teacher_home, name='teacher_home'),
     path('student/', student_home, name='student_home'),
     path('logout/', logout_view, name='logout'),
-    path('davomat/<int:pk>', group_detail, name='group_detail'),
+    path('attendance/<int:pk>', group_attendance, name='group_attendance'),
 ]

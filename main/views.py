@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from django.urls import reverse_lazy
-from .models import Teacher, Student, Group, Attendance
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
 
+from .models import Teacher, Student, Group, Attendance
 
 
 
@@ -33,23 +33,30 @@ def home(request):
 
 def dean_home(request):
     role = request.session.get('role')
+    login = request.session.get('login')
     if role != "dean":
         return redirect('login')
-    return render(request, 'home_page/hm.html', context={'page':'Dekan Page'})
+    user = get_object_or_404(Teacher, login=login)
+    return render(request, 'home_page/home.html', context={'user':user})
 
 
 def teacher_home(request):
     role = request.session.get('role')
-    if role != "teacher":
+    login = request.session.get('login')
+    if role not in ['assistent', 'senior', 'docent', 'professor', 'head_of_department']:
         return redirect('login')
-    return render(request, 'home_page/hm.html', context={'page':"O'qituvchi Page"})
+    user = get_object_or_404(Teacher, login=login)
+    groups = Group.objects.all()
+    return render(request, 'home_page/home.html', context={'user':user, 'groups':groups})
 
 
 def student_home(request):
     role = request.session.get('role')
+    login = request.session.get('login')
     if role != "student":
         return redirect('login')
-    return render(request, 'home_page/hm.html', context={'page':'Student Page'})
+    user = get_object_or_404(Student, login=login)
+    return render(request, 'home_page/home.html', context={'user':user, 'page':"student"})
 
 
 @never_cache
@@ -71,23 +78,22 @@ def login_view(request):
         user = None
         role = None
 
-        # Avval Teacher modelidan qidiramiz
+        # Teacher modelidan qidirish
         try:
             user = Teacher.objects.get(login=login)
             role = user.position
-            user_type = 'teacher'
         except Teacher.DoesNotExist:
-            # Keyin Student modelidan qidiramiz
+            # Student modelidan qidirish
             try:
                 user = Student.objects.get(login=login)
                 role = 'student'
-                user_type = 'student'
             except Student.DoesNotExist:
                 messages.error(request, "Login topilmadi.")
                 return redirect('login')
 
-        # Agar login topilgan bo‘lsa, parolni tekshiramiz
+        # Login topilsa, parolni tekshiramiz
         if check_password(password, user.password):
+            request.session['login'] = login
             request.session['user_id'] = user.id
             request.session['role'] = role
 
@@ -120,9 +126,9 @@ def logout_view(request):
     return redirect('login')
 
 
-def group_detail(request, pk):
+def group_attendance(request, pk):
     group = get_object_or_404(Group, pk=pk)
-    students = group.students.all()
+    students = group.students.all().order_by('last_name', 'first_name')
 
     if request.method == 'POST':
         for student in students:
@@ -132,17 +138,20 @@ def group_detail(request, pk):
             grade = request.POST.get(grade_key) or None
             is_present = present_key in request.POST  # checkbox borligini tekshiradi
 
+            login = request.session.get('login')
+            teacher = Teacher.objects.get(login=login)
             Attendance.objects.update_or_create(
                 student=student,
                 date=timezone.now().date(),
                 defaults={
                     'group': group,
                     'is_present': is_present,
-                    'grade': grade
+                    'grade': grade,
+                    'marked_by' : teacher
                 }
             )
         return redirect('home')
 
     attendance_data = Attendance.objects.filter(group=group, date=timezone.now().date())
     attendance_dict = {str(a.student_id): a for a in attendance_data}
-    return render(request, 'group_detail.html', context={'group': group, 'students':students, 'attendance_dict': attendance_dict})
+    return render(request, 'home_page/attendance.html', context={'group': group, 'students':students, 'attendance_dict': attendance_dict})

@@ -1,0 +1,28 @@
+<!-- Navbar -->
+<header class="navbar">
+    <div class="dashboard">
+        <button  class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <h3>Attendance System</h3>
+    </div>
+    <div class="user-info">
+        <button class="menu-toggle" id="menuToggle2"><i class="fas fa-bars"></i></button>
+        <span>O'zbekcha</span>
+        <div class="cont">
+            <div class="notification-badge">
+                <i class="fas fa-bell"></i>
+                <span class="badge">3</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <img src="{{ user.image.url }}" alt="A" class="user-image">
+            <div>
+                <div class="item-1">{{user.last_name|upper}} {{user.first_name|slice:'1'}}.</div>
+                {% if user.position %}
+                <div class="item-2">{{user.get_position_display}}</div>
+                {% else %}
+                <div class="item-2">{{user.group.name|upper}}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>

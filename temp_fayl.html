@@ -1,0 +1,163 @@
+{% extends "home_page/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Top Header -->
+    <header class="top-header">
+        <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="user-info">
+            <span>O'zbekcha</span>
+            <div class="notification-badge">
+                <i class="fas fa-bell"></i>
+                <span class="badge">13</span>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">A</div>
+                <div>
+                    <div style="font-weight: bold;">ABDIQAYUMOV A. A.</div>
+                    <div style="font-size: 12px; opacity: 0.8;">D122-12 (uz)</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <div class="content-area">
+        <!-- Course Header -->
+        <div class="course-header">
+            <div class="course-icon">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="course-info">
+                <h2>D122-12 (uz)</h2>
+            </div>
+            <div class="semester-tabs">
+                <button class="semester-tab">1</button>
+                <button class="semester-tab">2</button>
+                <button class="semester-tab">3</button>
+                <button class="semester-tab">4</button>
+                <button class="semester-tab">5</button>
+                <button class="semester-tab active">6</button>
+                <button class="semester-tab">7</button>
+                <button class="semester-tab">8</button>
+            </div>
+        </div>
+
+        <!-- Announcements and News -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-bullhorn"></i>
+                    E'lonlar
+                </h3>
+                <div class="empty-message">Announcements are empty</div>
+            </div>
+            <div class="info-card">
+                <h3>
+                    <i class="fas fa-newspaper"></i>
+                    Yangiliklar
+                </h3>
+                <div class="empty-message">News is empty</div>
+            </div>
+        </div>
+
+        <!-- Subjects and Resources -->
+        <div class="section">
+            <div class="section-header">
+                <h3 class="section-title">Fanlar va resurslar</h3>
+            </div>
+            <div class="grid-container">
+                <a href="#" class="grid-item item-schedule">
+                    <div class="grid-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4>O'quv reja</h4>
+                </a>
+                <a href="#" class="grid-item item-theory">
+                    <div class="grid-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h4>Dars jadvali</h4>
+                </a>
+                <a href="#" class="grid-item item-subjects">
+                    <div class="grid-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Nazorat jadvali</h4>
+                </a>
+                <a href="#" class="grid-item item-resources">
+                    <div class="grid-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4>Fan tanlovi</h4>
+                </a>
+                <a href="#" class="grid-item item-library">
+                    <div class="grid-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h4>Fanlar resurslari</h4>
+                </a>
+                <a href="#" class="grid-item item-library">
+                    <div class="grid-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h4>Unilibrary</h4>
+                </a>
+            </div>
+        </div>
+
+        <!-- Study Activities -->
+        <div class="section">
+            <div class="section-header">
+                <h3 class="section-title">O'quv faoliyati</h3>
+            </div>
+            <div class="grid-container">
+                <a href="#" class="grid-item item-clock">
+                    <div class="grid-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Vaqt jadvali</h4>
+                </a>
+                <a href="#" class="grid-item item-calculator">
+                    <div class="grid-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h4>Hisoblash</h4>
+                </a>
+                <a href="#" class="grid-item item-books">
+                    <div class="grid-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h4>Kitoblar</h4>
+                </a>
+                <a href="#" class="grid-item item-help">
+                    <div class="grid-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h4>Yordam</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Notification -->
+<div class="success-notification">
+    <i class="fas fa-check-circle"></i>
+    <span>Siz tizimga muvaffaqiyatli kirdingiz</span>
+</div>
+{% endblock content %}
+
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock extra_js %}
