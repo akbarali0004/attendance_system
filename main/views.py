@@ -37,7 +37,7 @@ def dean_home(request):
     if role != "dean":
         return redirect('login')
     user = get_object_or_404(Teacher, login=login)
-    return render(request, 'home_page/home.html', context={'user':user})
+    return render(request, 'home_page/home.html')
 
 
 def teacher_home(request):
@@ -47,7 +47,7 @@ def teacher_home(request):
         return redirect('login')
     user = get_object_or_404(Teacher, login=login)
     groups = Group.objects.all()
-    return render(request, 'home_page/home.html', context={'user':user, 'groups':groups})
+    return render(request, 'home_page/home.html', context={'groups':groups})
 
 
 def student_home(request):
@@ -56,7 +56,7 @@ def student_home(request):
     if role != "student":
         return redirect('login')
     user = get_object_or_404(Student, login=login)
-    return render(request, 'home_page/home.html', context={'user':user, 'page':"student"})
+    return render(request, 'home_page/home.html', context={'user':user})
 
 
 @never_cache
@@ -88,7 +88,7 @@ def login_view(request):
                 user = Student.objects.get(login=login)
                 role = 'student'
             except Student.DoesNotExist:
-                messages.error(request, "Login topilmadi.")
+                messages.error(request, "❌ Login yoki parol noto'g'ri.")
                 return redirect('login')
 
         # Login topilsa, parolni tekshiramiz
@@ -113,7 +113,7 @@ def login_view(request):
             elif role in ['assistent', 'senior', 'docent', 'professor', 'head_of_department']:
                 return redirect('teacher_home')
         else:
-            messages.error(request, "Parol xato.")
+            messages.error(request, "❌ Login yoki parol noto'g'ri.")
             return redirect('login')
 
     return render(request, 'registration/login.html')
@@ -122,7 +122,7 @@ def login_view(request):
 
 def logout_view(request):
     request.session.flush()
-    messages.error(request, "🔒 Tizimdan muvaffaqiyatli chiqdingiz.")
+    messages.info(request, "🔒 Tizimdan muvaffaqiyatli chiqdingiz.")
     return redirect('login')
 
 

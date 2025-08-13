@@ -7,23 +7,25 @@
 <section class="home-container">
     {% for group in groups %}
     <div class="group_list">
-        <h3><a href="{% url "group_attendance" group.id %}">{{group.name}}</a></h3><br>
-        <p>Lorem ipsum dolor, sit amet consectetur</p>
+        <h3><a href="{% url "group_attendance" group.id %}">{{ group.name }}</a></h3><br>
+        <p>Total Students: {{ group.students.count }}</p>
+        <small><b>Start time:</b> 11-08-2025 | 10:00</small>
+        <small><b>End time:</b> 11-08-2025 | 11:20</small>
     </div>
     {% endfor %}
-    <div class="group_list">
-        <h3>{{user.first_name}}</h3><br>
-        <p>Lorem ipsum dolor, sit amet consectetur</p>
-    </div>
 </section>
 
-{% comment %} <!-- Success Notification -->
-<div class="success-notification">
-    <i class="fas fa-check-circle"></i>
-    <span>Siz tizimga muvaffaqiyatli kirdingiz</span>
-</div> {% endcomment %}
-{% endblock content %}
+{% if messages %}
+<div class="messages" onclick="this.style.display='none'">
+    {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
 
+{% endblock content %}
 
 {% block extra_js %}
 <script src="{% static 'js/home.js' %}"></script>

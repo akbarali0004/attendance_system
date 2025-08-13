@@ -251,15 +251,37 @@ body {
 }
 
 
-.login-error-container {
+/* .login-error-container {
     position: fixed;
-    bottom: 45px;   /* pastdan 20px */
-    right: 50px;     /* chapdan 20px */
-    background-color: #ec3232;
+    bottom: 45px;
+    right: 50px;
+    background-color: #f06161;
     color: white;
     padding: 15px 55px 15px 18px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 999;   /* boshqa elementlardan ustun bo‘lishi uchun */
+    z-index: 999;
+    cursor: pointer;
+} */
+
+/* message design */
+.messages {
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+    z-index: 9999;
     cursor: pointer;
 }
+.alert {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: opacity 0.5s ease; /* silliq yo‘qolish */
+}
+.alert.success { background: rgba(0, 128, 0, 0.6); }
+.alert.error   { background: rgba(255, 0, 0, 0.6); }
+.alert.info    { background: rgba(0, 0, 255, 0.6); }
+.alert.warning { background: rgba(255, 165, 0, 0.6); }

@@ -77,3 +77,13 @@ document.querySelectorAll('.nav-link').forEach(link => {
         console.log('Navigation:', this.querySelector('.nav-text').textContent);
     });
 });
+
+// messageni ma'lum vaqtdan keyin olib tashlash
+setTimeout(function () {
+    document.querySelectorAll('.messages .alert').forEach(function (el) {
+        el.style.opacity = '0';
+        setTimeout(function () {
+            el.remove();
+        }, 500); // animatsiya tugashi uchun yarim soniya kutamiz
+    });
+}, 3000);

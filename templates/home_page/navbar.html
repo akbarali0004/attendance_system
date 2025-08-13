@@ -13,15 +13,20 @@
                 <span class="badge">3</span>
             </div>
         </div>
-        <div class="user-profile">
+        <div class="user-profile" id="userProfile">
             <img src="{{ user.image.url }}" alt="A" class="user-image">
             <div>
-                <div class="item-1">{{user.last_name|upper}} {{user.first_name|slice:'1'}}.</div>
+                <div class="item-1">{{ user.last_name|upper }} {{ user.first_name|slice:'1' }}.</div>
                 {% if user.position %}
-                <div class="item-2">{{user.get_position_display}}</div>
+                    <div class="item-2">{{ user.get_position_display }}</div>
                 {% else %}
-                <div class="item-2">{{user.group.name|upper}}</div>
+                    <div class="item-2">{{ user.group.name|upper }}</div>
                 {% endif %}
+            </div>
+
+            <div class="user-dropdown" id="userDropdown">
+                <a href="">Profil</a>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Chiqish</a>
             </div>
         </div>
     </div>
